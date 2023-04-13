@@ -1,0 +1,3 @@
+#Aqui se subira el juego a la web
+#Here the game will upload to web
+import pygame 
