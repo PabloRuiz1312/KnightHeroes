@@ -1,0 +1,3 @@
+#Juego donde se almacena todas las funciones destinadas a ejeccutar
+#Game where all functions it's save to execute
+import pygame
