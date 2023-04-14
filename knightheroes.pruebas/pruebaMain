@@ -1,6 +1,7 @@
 #Pruebas para el main
 #Test to the main class
 import pygame
+import time
 #Dimensions of the window
 ANCHO = 800
 LARGO = 600
@@ -11,58 +12,60 @@ VERDE = pygame.Color(0,255,0)
 AZUL = pygame.Color(0,0,255)
 BLANCO = pygame.Color(255,255,255)
 
-def crearBloque(sprites):
+def crearBloque(spritesJuego):
     bloque = pygame.sprite.Sprite()
 
-    bloque.image = pygame.Surface([ANCHO,LARGO])
+    bloque.image = pygame.Surface([50,50])
     bloque.image.fill(ROJO)
     bloque.rect = bloque.image.get_rect()
 
-    bloque.rect.x = 0
-    bloque.rect.y = 0
+    bloque.rect.x = 400
+    bloque.rect.y = 300
 
     #bloque.velocidad_x = 0
     #bloque.velocidad_y = 0
 
-    sprites.add(bloque)
+    spritesJuego.add(bloque)
 
     return bloque
 
 def movBloque(protagonista):
     teclaPulsada = pygame.key.get_pressed()
     if(teclaPulsada[pygame.K_d]):
-        protagonista.rect.x += 0.5
+        protagonista.rect.x += 1
         #protagonista.velocidad_x += 1
-    elif(teclaPulsada[pygame.K_a]):
-        protagonista.rect.x -= 0.5
+    if(teclaPulsada[pygame.K_a]):
+        protagonista.rect.x -= 1
         #protagonista.velocidad_x -= 1
-    elif(teclaPulsada[pygame.K_w]):
-        protagonista.rect.y -= 0.5
+    if(teclaPulsada[pygame.K_w]):
+        protagonista.rect.y -=  1
         #protagonista.rect.y -= 1
-    elif(teclaPulsada[pygame.K_s]):
-        protagonista.rect.y += 0.5
+    if(teclaPulsada[pygame.K_s]):
+        protagonista.rect.y += 1
         #protagonista.velocidad_y +=1
-    #else:
+    else:
         #protagonista.velocidad_x = 0
         #protagonista.velocidad_y = 0
-
+        protagonista.rect.x = protagonista.rect.x + 0
+        protagonista.rect.y = protagonista.rect.y + 0
 
 pygame.init()
 pantalla = pygame.display.set_mode((ANCHO,LARGO))
 
 
-bloque = pygame.sprite.Group() 
-protagonista = movBloque(bloque)
-
+Bloques = pygame.sprite.Group() 
+protagonista = crearBloque(Bloques)
 funcionando = True
 
 while funcionando:
     pantalla.fill(NEGRO)
+    Bloques.draw(pantalla)
     for evento in pygame.event.get():
 
         if evento.type == pygame.QUIT:
             funcionando = False
-    bloque.draw(pantalla)
+   
+    time.sleep(0.007)
     movBloque(protagonista)
 
     pygame.display.flip()
