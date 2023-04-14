@@ -1,0 +1,17 @@
+#Escena donde se indican los controles
+def escenaComienzo(sprites):
+    escena = pygame.sprite.Sprite()
+    escena.image = pygame.image.load("Comienzo.png")
+
+    escena.rect = escena.image.get_rect()
+    escena.rect.x = 0
+    escena.rect.y = 0
+
+    sprites.add(escena)
+    return escena
+#Iteraccion para empezar el juego
+def empezar(comenzar):
+    teclaPulsada = pygame.key.get_pressed()
+    if(teclaPulsada[pygame.K_RETURN]):
+        comenzar = True
+    return comenzar
