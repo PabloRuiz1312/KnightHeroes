@@ -1,3 +1,58 @@
-#Juego donde se almacena todas las funciones destinadas a ejeccutar
-#Game where all functions it's save to execute
+#Pruebas para el main
+#Test to the main class
 import pygame
+import asyncio
+#Dimensiones de la pantalla
+#Dimensions of the window
+ANCHO = 800
+LARGO = 600
+#Colores
+#Colors
+NEGRO = pygame.Color(0,0,0)
+ROJO = pygame.Color(255,0,0)
+VERDE = pygame.Color(0,255,0)
+AZUL = pygame.Color(0,0,255)
+BLANCO = pygame.Color(255,255,255)
+MORADO = pygame.Color(70,31,120)
+#Se crea el menu de comienzo
+#The starting menu is created
+def escenaComienzo(sprites):
+    escena = pygame.sprite.Sprite()
+    escena.image = pygame.image.load("Comienzo.png")
+
+    escena.rect = escena.image.get_rect()
+    escena.rect.x = 0
+    escena.rect.y = 0
+
+    sprites.add(escena)
+    return escena
+#Iteraccion para empezar el juego
+#Iteracction to start the game
+def empezar(comenzar):
+    teclaPulsada = pygame.key.get_pressed()
+    if(teclaPulsada[pygame.K_RETURN]):
+        comenzar = True
+    return comenzar
+#Inicializamos pygame
+#We inicializate pygame
+pygame.init()
+pantalla = pygame.display.set_mode((ANCHO,LARGO))
+comenzar = False
+Escena = pygame.sprite.Group() 
+comienzo = escenaComienzo(Escena)
+funcionando = True
+#Bucle principal del juego
+#Principal loop of the game
+while funcionando:
+    pantalla.fill(NEGRO)
+
+    for evento in pygame.event.get():
+        if evento.type == pygame.QUIT:
+            funcionando = False
+            
+    if(comenzar==False):
+        Escena.draw(pantalla)
+        comenzar = empezar(comenzar)
+    pygame.display.flip()
+
+pygame.quit()
