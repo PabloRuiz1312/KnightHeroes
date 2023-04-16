@@ -2,6 +2,7 @@
 #Test to the main class
 import pygame
 import asyncio
+import time
 from FramesPersonaje import Frames
 from Texto import TextoPersonaje
 #Dimensions of the window
@@ -79,7 +80,16 @@ def moverCuadro(cuadro,contador):
         if(contador==50):
             contador = 0
     return contador
-
+def empezarPartida(cuadro,perso1,perso2,perso3):
+   
+    teclaPulsada = pygame.key.get_pressed()
+    if(perso1==False):
+        if(teclaPulsada[pygame.K_RETURN]):
+            if(cuadro.rect.x == 90):
+                perso1 = True
+           
+            
+    return perso1,perso2,perso3
 def crearProta1(sprites):
     protagonista = pygame.sprite.Sprite()
 
@@ -96,15 +106,55 @@ def crearProta1(sprites):
     sprites.add(protagonista)
     return protagonista
 
+def gestionarMovimiento(protagonista,derecha,izquierda,abajo,arriba):
+    teclaPulsada = pygame.key.get_pressed()
+    if(teclaPulsada[pygame.K_d]):
+        protagonista.rect.x +=1
+        derecha = 1   
+        izquierda = 0
+        abajo = 0
+        arriba = 0 
+    if(teclaPulsada[pygame.K_a]):
+        protagonista.rect.x-=1
+        izquierda = 1
+        derecha = 0
+        abajo = 0
+        arriba = 0
+    if(teclaPulsada[pygame.K_w]):
+        protagonista.rect.y -=1
+        arriba = 1
+        derecha = 0
+        abajo = 0
+        izquierda = 0
+    if(teclaPulsada[pygame.K_s]):
+        protagonista.rect.y +=1 
+        abajo = 1
+        arriba = 0
+        derecha = 0
+        izquierda = 0
+    else:
+        protagonista.rect.x += 0
+        protagonista.rect.y += 0
+       
+    return derecha,izquierda,arriba,abajo   
 pygame.init()
 textoPersonaje = pygame.font.Font(None,35)
 pantalla = pygame.display.set_mode((ANCHO,LARGO))
 comenzar = True
+perso1 = False
+perso2 = False
+perso3 = False
+izquierda = 0
+derecha = 0
+abajo = 0
+arriba = 0
 Seleccion = pygame.sprite.Group() 
 cuadro = cuadroSeleccion(Seleccion)
 retrato1 = retratoGuerrero(Seleccion)
 retrato2 = retratoVampiro(Seleccion)
 retrato3 = retratoVikingoReforzado(Seleccion)
+prota1 = pygame.sprite.Group()
+guerrero = crearProta1(prota1)
 funcionando = True
 contador = 0
 while funcionando:
@@ -114,11 +164,17 @@ while funcionando:
         if evento.type == pygame.QUIT:
             funcionando = False
 
-    if(comenzar==True):
+    if(comenzar==True and (perso1==False and perso2==False and perso3==False)):
         pantalla.fill(MORADO)
         Seleccion.draw(pantalla)
         contador = moverCuadro(cuadro,contador) 
-        TextoPersonaje.mostrarTexto(cuadro,textoPersonaje,pantalla,BLANCO)     
+        TextoPersonaje.mostrarTexto(cuadro,textoPersonaje,pantalla,BLANCO)
+        perso1,perso2,perso3 = empezarPartida(cuadro,perso1,perso2,perso3)
+    if(perso1==True):
+        prota1.draw(pantalla)
+        time.sleep(0.007)
+        derecha,izquierda,arriba,abajo = gestionarMovimiento(guerrero,derecha,izquierda,abajo,arriba)    
+        Frames.actualizarFrameProta1(guerrero,arriba,derecha,izquierda,abajo)
     
     pygame.display.flip()
 
