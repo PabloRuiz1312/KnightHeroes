@@ -2,6 +2,8 @@
 #Test to the main class
 import pygame
 import asyncio
+from FramesPersonaje import Frames
+from Texto import TextoPersonaje
 async def main():
     #Dimensiones de la pantalla
     #Dimensions of the window
@@ -98,78 +100,77 @@ async def main():
             contador+=1
             if(contador==5):
                 contador = 0
-        return contador
-    #Se crea la informacion de los personajes
-    def texto(cuadro):
-        titulo = "SELECCIONA TU PERSONAJE"
-        colocar = textoPersonaje.render(titulo,1,BLANCO)
-        pantalla.blit(colocar,(220,20))
-        if(cuadro.rect.x==90):
-            personaje = "Guerrero:"
-            transmitir = textoPersonaje.render(personaje,1,BLANCO)
-            pantalla.blit(transmitir,(340,300))
-            primerMensaje = "Este personaje cuenta con 150 de vida y 20 de ataque"
-            transmitir2 = textoPersonaje.render(primerMensaje,1,BLANCO)
-            pantalla.blit(transmitir2,(90,340))
-            segundoMensaje = "Su habilidad especial es FLECHA VENENOSA:"
-            transmitir3 = textoPersonaje.render(segundoMensaje,1,BLANCO)
-            pantalla.blit(transmitir3,(90,380))
-            tercerMensaje = "Dispara una flecha envenenada que inflinge 10 de daño"
-            transmitir4 = textoPersonaje.render(tercerMensaje,1,BLANCO)
-            pantalla.blit(transmitir4,(90,420))
-            cuartoMensaje = "por segundo durante 3 segundos si fuera critico hara 30"
-            transmitir5 = textoPersonaje.render(cuartoMensaje,1,BLANCO)
-            pantalla.blit(transmitir5,(90,460))
-            quintoMensaje = "la habilidad se recarga acertando 10 tiros"
-            transmitir6 = textoPersonaje.render(quintoMensaje,1,BLANCO)
-            pantalla.blit(transmitir6,(90,500))
-        elif(cuadro.rect.x==310):
-            personaje = "Vampiro:"
-            transmitir = textoPersonaje.render(personaje,1,BLANCO)
-            pantalla.blit(transmitir,(340,300))
-            primerMensaje = "Este personaje cuenta con 100 de vida y 30 de ataque"
-            transmitir2 = textoPersonaje.render(primerMensaje,1,BLANCO)
-            pantalla.blit(transmitir2,(90,340))
-            segundoMensaje = "su habilidad especial es CHUPA SANGRE:"
-            transmitir3 = textoPersonaje.render(segundoMensaje,1,BLANCO)
-            pantalla.blit(transmitir3,(90,380))
-            tercerMensaje = "muerde un area inflingiendo 50 de daño y curandose 40"
-            transmitir4 = textoPersonaje.render(tercerMensaje,1,BLANCO)
-            pantalla.blit(transmitir4,(90,420))
-            cuartoMensaje = "de vida, si fuera critico hara 60 y se curara 50"
-            transmitir5 = textoPersonaje.render(cuartoMensaje,1,BLANCO)
-            pantalla.blit(transmitir5,(90,460))
-            quintoMensaje = "la habilidad se recarga acertando 20 tiros"
-            transmitir6 = textoPersonaje.render(quintoMensaje,1,BLANCO)
-            pantalla.blit(transmitir6,(90,500))
+        return contador   
+    def empezarPartida(cuadro,perso1,perso2,perso3):
+   
+        teclaPulsada = pygame.key.get_pressed()
+        if(perso1==False):
+            if(teclaPulsada[pygame.K_e]):
+                if(cuadro.rect.x == 90):
+                    perso1 = True
+           
+            
+        return perso1,perso2,perso3
+    def crearProta1(sprites):
+        protagonista = pygame.sprite.Sprite()
+
+        protagonista.spriteSheet = pygame.image.load("prota1.png").convert()
+
+        Frames.obenerFramesDerechaProta1(protagonista)
+        Frames.obtenerFramesIzquierdaProta1(protagonista)
+        Frames.obtenerFramesArribaProta1(protagonista)
+        Frames.obtenerFramesAbajoProta1(protagonista)
+
+        protagonista.rect.x = 400
+        protagonista.rect.y = 300
+
+        sprites.add(protagonista)
+        return protagonista
+
+    def gestionarMovimiento(protagonista,derecha,izquierda,abajo,arriba):
+        teclaPulsada = pygame.key.get_pressed()
+        if(teclaPulsada[pygame.K_d]):
+            protagonista.rect.x +=1
+            derecha = 1   
+            izquierda = 0
+            abajo = 0
+            arriba = 0 
+        if(teclaPulsada[pygame.K_a]):
+            protagonista.rect.x-=1
+            izquierda = 1
+            derecha = 0
+            abajo = 0
+            arriba = 0
+        if(teclaPulsada[pygame.K_w]):
+            protagonista.rect.y -=1
+            arriba = 1
+            derecha = 0
+            abajo = 0
+            izquierda = 0
+        if(teclaPulsada[pygame.K_s]):
+            protagonista.rect.y +=1
+            abajo = 1
+            arriba = 0
+            derecha = 0
+            izquierda = 0
         else:
-            personaje = "Vikingo reforzado:"
-            transmitir = textoPersonaje.render(personaje,1,BLANCO)
-            pantalla.blit(transmitir,(340,300))
-            primerMensaje = "Este personaje cuenta con 200 de vida y 15 de ataque"
-            transmitir2 = textoPersonaje.render(primerMensaje,1,BLANCO)
-            pantalla.blit(transmitir2,(90,340))
-            segundoMensaje = "su habilidad especial es VALHALLA:"
-            transmitir3 = textoPersonaje.render(segundoMensaje,1,BLANCO)
-            pantalla.blit(transmitir3,(90,380))
-            tercerMensaje = "pegas un pisoton que hace daño en area inflingiendo"
-            transmitir4 = textoPersonaje.render(tercerMensaje,1,BLANCO)
-            pantalla.blit(transmitir4,(90,420))
-            cuartoMensaje = "30 de daño y volviendote invulnerable durante 5 segundos"
-            transmitir5 = textoPersonaje.render(cuartoMensaje,1,BLANCO)
-            pantalla.blit(transmitir5,(90,460))
-            quintoMensaje = "si resultara critico haces 40 y la invulnerabilidad de 7"
-            transmitir6 = textoPersonaje.render(quintoMensaje,1,BLANCO)
-            pantalla.blit(transmitir6,(90,500))
-            sextoMensaje = "la habilidad se recarga acertando 30 tiros"
-            transmitir7 = textoPersonaje.render(sextoMensaje,1,BLANCO)
-            pantalla.blit(transmitir7,(90,540))
+            protagonista.rect.x += 0
+            protagonista.rect.y += 0
+        
+        return derecha,izquierda,arriba,abajo
     #Inicializamos pygame
     #We inicializate pygame
     pygame.init()
     textoPersonaje = pygame.font.Font(None,35)
     pantalla = pygame.display.set_mode((ANCHO,LARGO))
     comenzar = False
+    perso1 = False
+    perso2 = False
+    perso3 = False
+    izquierda = 0
+    derecha = 0
+    abajo = 0
+    arriba = 0
     Escena = pygame.sprite.Group() 
     comienzo = escenaComienzo(Escena)
     Seleccion = pygame.sprite.Group() 
@@ -177,6 +178,8 @@ async def main():
     retrato1 = retratoGuerrero(Seleccion)
     retrato2 = retratoVampiro(Seleccion)
     retrato3 = retratoVikingoReforzado(Seleccion)
+    prota1 = pygame.sprite.Group()
+    guerrero = crearProta1(prota1)
     contador = 0
     funcionando = True
     #Bucle principal del juego
@@ -191,13 +194,17 @@ async def main():
         if(comenzar==False):
             Escena.draw(pantalla)
             comenzar = empezar(comenzar)
-        else:
+        elif(comenzar==True and (perso1==False and perso2==False and perso3==False)):
             pantalla.fill(MORADO)
             Seleccion.draw(pantalla)
             contador = moverCuadro(cuadro,contador)
-            texto(cuadro)
+            perso1,perso2,perso3 = empezarPartida(cuadro,perso1,perso2,perso3)
+            TextoPersonaje.mostrarTexto(cuadro,textoPersonaje,pantalla,BLANCO)
+        if(perso1==True):
+            prota1.draw(pantalla)
+            derecha,izquierda,arriba,abajo = gestionarMovimiento(guerrero,derecha,izquierda,abajo,arriba)    
+            Frames.actualizarFrameProta1(guerrero,arriba,derecha,izquierda,abajo)
+        
         pygame.display.flip()
         await asyncio.sleep(0)
-asyncio.run(main())#Aqui se subira el juego a la web
-#Here the game will upload to web
-import pygame 
+asyncio.run(main())
