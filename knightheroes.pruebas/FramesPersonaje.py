@@ -61,30 +61,30 @@ class Frames:
 
         frame = Frames.obtenerFrame(protagonista.spriteSheet,32,141.75,32,47.25)
 
-        protagonista.FramesAbajo.append(frame)
+        protagonista.FramesArriba.append(frame)
 
         frame = Frames.obtenerFrame(protagonista.spriteSheet,64,141.75,32,47.25)
 
-        protagonista.FramesAbajo.append(frame)
+        protagonista.FramesArriba.append(frame)
 
-    def actualizarFrameProta1(protagonista):
+    def actualizarFrameProta1(protagonista,arriba,derecha,izquierda,abajo):
 
-        if (protagonista.velocidad_x > 0):
+        if (derecha == 1):
 
             frame = (protagonista.rect.x // 50) % len(protagonista.FramesDerecha)
             protagonista.image = protagonista.FramesDerecha[frame]
 
-        elif (protagonista.velocidad_x < 0):
+        elif (izquierda == 1):
 
             frame = (protagonista.rect.x // 50) % len(protagonista.FramesIzquierda)
             protagonista.image = protagonista.FramesIzquierda[frame]
 
-        elif (protagonista.velocidad_y > 0):
+        elif (abajo == 1):
             
             frame = (protagonista.rect.y // 50) % len(protagonista.FramesAbajo)
             protagonista.image = protagonista.FramesAbajo[frame]
 
-        elif (protagonista.velocidad_y < 0):
+        elif (arriba == 1):
 
             frame = (protagonista.rect.y // 50) % len(protagonista.FramesArriba)
             protagonista.image = protagonista.FramesArriba[frame]
