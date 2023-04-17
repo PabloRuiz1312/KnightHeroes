@@ -84,9 +84,11 @@ def empezarPartida(cuadro,perso1,perso2,perso3):
    
     teclaPulsada = pygame.key.get_pressed()
     if(perso1==False):
-        if(teclaPulsada[pygame.K_RETURN]):
+        if(teclaPulsada[pygame.K_e]):
             if(cuadro.rect.x == 90):
                 perso1 = True
+            if(cuadro.rect.x == 310):
+                perso2 = True
            
             
     return perso1,perso2,perso3
@@ -99,6 +101,21 @@ def crearProta1(sprites):
     Frames.obtenerFramesIzquierdaProta1(protagonista)
     Frames.obtenerFramesArribaProta1(protagonista)
     Frames.obtenerFramesAbajoProta1(protagonista)
+
+    protagonista.rect.x = 400
+    protagonista.rect.y = 300
+
+    sprites.add(protagonista)
+    return protagonista
+def crearProta2(sprites):
+    protagonista = pygame.sprite.Sprite()
+
+    protagonista.spriteSheet = pygame.image.load("prota2.png").convert()
+
+    Frames.obenerFramesDerechaProta2(protagonista)
+    Frames.obtenerFramesIzquierdaProta2(protagonista)
+    Frames.obtenerFramesArribaProta2(protagonista)
+    Frames.obtenerFramesAbajoProta2(protagonista)
 
     protagonista.rect.x = 400
     protagonista.rect.y = 300
@@ -155,6 +172,8 @@ retrato2 = retratoVampiro(Seleccion)
 retrato3 = retratoVikingoReforzado(Seleccion)
 prota1 = pygame.sprite.Group()
 guerrero = crearProta1(prota1)
+prota2 = pygame.sprite.Group()
+vampiro = crearProta2(prota2)
 funcionando = True
 contador = 0
 while funcionando:
@@ -174,8 +193,12 @@ while funcionando:
         prota1.draw(pantalla)
         time.sleep(0.007)
         derecha,izquierda,arriba,abajo = gestionarMovimiento(guerrero,derecha,izquierda,abajo,arriba)    
-        Frames.actualizarFrameProta1(guerrero,arriba,derecha,izquierda,abajo)
-    
+        Frames.actualizarFrameProta(guerrero,arriba,derecha,izquierda,abajo)
+    if(perso2==True):
+        prota2.draw(pantalla)
+        time.sleep(0.007)
+        derecha,izquierda,arriba,abajo = gestionarMovimiento(vampiro,derecha,izquierda,abajo,arriba)    
+        Frames.actualizarFrameProta(vampiro,arriba,derecha,izquierda,abajo)
     pygame.display.flip()
 
 pygame.quit()
