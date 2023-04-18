@@ -89,6 +89,8 @@ def empezarPartida(cuadro,perso1,perso2,perso3):
                 perso1 = True
             if(cuadro.rect.x == 310):
                 perso2 = True
+            if(cuadro.rect.x==530):
+                perso3 = True
            
             
     return perso1,perso2,perso3
@@ -116,6 +118,22 @@ def crearProta2(sprites):
     Frames.obtenerFramesIzquierdaProta2(protagonista)
     Frames.obtenerFramesArribaProta2(protagonista)
     Frames.obtenerFramesAbajoProta2(protagonista)
+
+    protagonista.rect.x = 400
+    protagonista.rect.y = 300
+
+    sprites.add(protagonista)
+    return protagonista
+
+def crearProta3(sprites):
+    protagonista = pygame.sprite.Sprite()
+
+    protagonista.spriteSheet = pygame.image.load("prota3.png").convert()
+
+    Frames.obenerFramesDerechaProta3(protagonista)
+    Frames.obtenerFramesIzquierdaProta3(protagonista)
+    Frames.obtenerFramesArribaProta3(protagonista)
+    Frames.obtenerFramesAbajoProta3(protagonista)
 
     protagonista.rect.x = 400
     protagonista.rect.y = 300
@@ -174,6 +192,8 @@ prota1 = pygame.sprite.Group()
 guerrero = crearProta1(prota1)
 prota2 = pygame.sprite.Group()
 vampiro = crearProta2(prota2)
+prota3 = pygame.sprite.Group()
+vikingo = crearProta3(prota3)
 funcionando = True
 contador = 0
 while funcionando:
@@ -189,6 +209,7 @@ while funcionando:
         contador = moverCuadro(cuadro,contador) 
         TextoPersonaje.mostrarTexto(cuadro,textoPersonaje,pantalla,BLANCO)
         perso1,perso2,perso3 = empezarPartida(cuadro,perso1,perso2,perso3)
+        print(cuadro.rect.x)
     if(perso1==True):
         prota1.draw(pantalla)
         time.sleep(0.007)
@@ -199,6 +220,11 @@ while funcionando:
         time.sleep(0.007)
         derecha,izquierda,arriba,abajo = gestionarMovimiento(vampiro,derecha,izquierda,abajo,arriba)    
         Frames.actualizarFrameProta(vampiro,arriba,derecha,izquierda,abajo)
+    if(perso3==True):
+        prota3.draw(pantalla)
+        time.sleep(0.007)
+        derecha,izquierda,arriba,abajo = gestionarMovimiento(vikingo,derecha,izquierda,abajo,arriba)    
+        Frames.actualizarFrameProta(vikingo,arriba,derecha,izquierda,abajo)
     pygame.display.flip()
 
 pygame.quit()
