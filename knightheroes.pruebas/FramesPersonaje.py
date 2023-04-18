@@ -124,6 +124,62 @@ class Frames:
 
         protagonista.FramesArriba.append(frame)
     
+    def obenerFramesDerechaProta3(protagonista):
+        protagonista.FramesDerecha = []
+        frame = Frames.obtenerFrame(protagonista.spriteSheet,0,96.5,32.6,48.25)
+
+        protagonista.FramesDerecha.append(frame)
+
+        frame = Frames.obtenerFrame(protagonista.spriteSheet,32,96.5,32.6,48.25)
+
+        protagonista.FramesDerecha.append(frame)
+
+        frame = Frames.obtenerFrame(protagonista.spriteSheet,64,96.5,32.6,48.25)
+
+        protagonista.FramesDerecha.append(frame)
+    
+    def obtenerFramesIzquierdaProta3(protagonista):
+        protagonista.FramesIzquierda = []
+        frame = Frames.obtenerFrame(protagonista.spriteSheet,0,48.25,32.6,48.25)
+
+        protagonista.FramesIzquierda.append(frame)
+
+        frame = Frames.obtenerFrame(protagonista.spriteSheet,32,48.25,32.6,48.25)
+
+        protagonista.FramesIzquierda.append(frame)
+
+        frame = Frames.obtenerFrame(protagonista.spriteSheet,64,48.25,32.6,48.25)
+    
+    def obtenerFramesAbajoProta3(protagonista):
+        protagonista.FramesAbajo = []
+        frame = Frames.obtenerFrame(protagonista.spriteSheet,0,0,32.6,48.25)
+
+        protagonista.FramesAbajo.append(frame)
+
+        frame = Frames.obtenerFrame(protagonista.spriteSheet,32,0,32.6,48.25)
+
+        protagonista.FramesAbajo.append(frame)
+
+        frame = Frames.obtenerFrame(protagonista.spriteSheet,64,0,32.6,48.25)
+
+        protagonista.FramesAbajo.append(frame)
+
+        protagonista.image = protagonista.FramesAbajo[0]
+        protagonista.rect = protagonista.image.get_rect()
+    
+    def obtenerFramesArribaProta3(protagonista):
+        protagonista.FramesArriba = []
+        frame = Frames.obtenerFrame(protagonista.spriteSheet,0,144.75,32.6,48.25)
+
+        protagonista.FramesArriba.append(frame)
+
+        frame = Frames.obtenerFrame(protagonista.spriteSheet,32,144.75,32.6,48.25)
+
+        protagonista.FramesArriba.append(frame)
+
+        frame = Frames.obtenerFrame(protagonista.spriteSheet,64,144.75,32.6,48.25)
+
+        protagonista.FramesArriba.append(frame)
     
 
     def actualizarFrameProta(protagonista,arriba,derecha,izquierda,abajo):
