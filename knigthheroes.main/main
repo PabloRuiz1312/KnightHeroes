@@ -108,6 +108,10 @@ async def main():
             if(teclaPulsada[pygame.K_e]):
                 if(cuadro.rect.x == 90):
                     perso1 = True
+                if(cuadro.rect.x == 310):
+                    perso2 = True
+                if(cuadro.rect.x==530):
+                    perso3 = True
            
             
         return perso1,perso2,perso3
@@ -127,6 +131,36 @@ async def main():
         sprites.add(protagonista)
         return protagonista
 
+    def crearProta2(sprites):
+        protagonista = pygame.sprite.Sprite()
+
+        protagonista.spriteSheet = pygame.image.load("prota2.png").convert()
+
+        Frames.obenerFramesDerechaProta2(protagonista)
+        Frames.obtenerFramesIzquierdaProta2(protagonista)
+        Frames.obtenerFramesArribaProta2(protagonista)
+        Frames.obtenerFramesAbajoProta2(protagonista)
+
+        protagonista.rect.x = 400
+        protagonista.rect.y = 300
+
+        sprites.add(protagonista)
+        return protagonista
+    def crearProta3(sprites):
+        protagonista = pygame.sprite.Sprite()
+
+        protagonista.spriteSheet = pygame.image.load("prota3.png").convert()
+
+        Frames.obenerFramesDerechaProta2(protagonista)
+        Frames.obtenerFramesIzquierdaProta2(protagonista)
+        Frames.obtenerFramesArribaProta2(protagonista)
+        Frames.obtenerFramesAbajoProta2(protagonista)
+
+        protagonista.rect.x = 400
+        protagonista.rect.y = 300
+
+        sprites.add(protagonista)
+        return protagonista
     def gestionarMovimiento(protagonista,derecha,izquierda,abajo,arriba):
         teclaPulsada = pygame.key.get_pressed()
         if(teclaPulsada[pygame.K_d]):
@@ -180,6 +214,10 @@ async def main():
     retrato3 = retratoVikingoReforzado(Seleccion)
     prota1 = pygame.sprite.Group()
     guerrero = crearProta1(prota1)
+    prota2 =  pygame.sprite.Group()
+    vampiro = crearProta2(prota2)
+    prota3 =  pygame.sprite.Group()
+    vikingo = crearProta2(prota2)
     contador = 0
     funcionando = True
     #Bucle principal del juego
@@ -204,7 +242,14 @@ async def main():
             prota1.draw(pantalla)
             derecha,izquierda,arriba,abajo = gestionarMovimiento(guerrero,derecha,izquierda,abajo,arriba)    
             Frames.actualizarFrameProta1(guerrero,arriba,derecha,izquierda,abajo)
-        
+        if(perso2==True):
+            prota2.draw(pantalla)
+            derecha,izquierda,arriba,abajo = gestionarMovimiento(vampiro,derecha,izquierda,abajo,arriba)    
+            Frames.actualizarFrameProta1(vampiro,arriba,derecha,izquierda,abajo)
+        if(perso3==True):
+            prota3.draw(pantalla)
+            derecha,izquierda,arriba,abajo = gestionarMovimiento(vikingo,derecha,izquierda,abajo,arriba)    
+            Frames.actualizarFrameProta1(vikingo,arriba,derecha,izquierda,abajo)
         pygame.display.flip()
         await asyncio.sleep(0)
 asyncio.run(main())
